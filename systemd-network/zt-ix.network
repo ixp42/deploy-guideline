@@ -1,0 +1,5 @@
+[Match]
+Name=zt-ix
+
+[Network]
+Bridge=br-ix
