@@ -1,0 +1,8 @@
+[Match]
+Name=br-ix
+
+[Address]
+Address=169.254.1.4/24 # Management / Customer Address, not RS Address!
+
+[Address]
+Address=2a0e:b107:b7a::4/64 # Management / Customer Address, not RS Address!
