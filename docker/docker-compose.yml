@@ -1,0 +1,72 @@
+version: '3.5'
+
+services:
+  ixbird4:
+    container_name: ixbird4
+    image: ghcr.io/ixp42/rs:master
+    environment:
+      - IXKEY=[SECRET]
+      - IXHANDLE=rs-las-c-4
+      - PORT=9001
+      - IP4=169.254.1.1/24
+    restart: always
+    cap_add: 
+      - NET_ADMIN
+    networks:
+      default:
+      ixdockernet:
+  ixbird6:
+    container_name: ixbird6
+    image: ghcr.io/ixp42/rs:master
+    environment:
+      - IXKEY=[SECRET]
+      - IXHANDLE=rs-las-c-6
+      - PORT=9002
+      - IP6=2a0e:b107:b7a::1/64
+    restart: always
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv6.conf.default.disable_ipv6=0
+    cap_add: 
+      - NET_ADMIN
+    networks:
+      default:
+        ipv4_address: 100.64.254.11
+      ixdockernet:
+  as112bird:
+    container_name: as112bird
+    image: ghcr.io/ixp42/as112:master
+    environment:
+      - NEI4=169.254.1.1
+      - NEI6=2a0e:b107:b7a::1
+      - IP4=169.254.1.12/24
+      - IP6=2a0e:b107:b7a::12/64
+    restart: always
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv6.conf.default.disable_ipv6=0
+    cap_add: 
+      - NET_ADMIN
+    networks:
+      default:
+        ipv4_address: 100.64.254.12
+      ixdockernet:
+
+networks:
+  ixdockernet:
+    name: 'ixdockernet'
+    driver_opts:
+      com.docker.network.bridge.name: ixdockernet
+      com.docker.network.bridge.enable_ip_masquerade: 'false'
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 100.64.253.0/24
+  default:
+    name: 'ixdefault'
+    driver_opts:
+      com.docker.network.bridge.name: ixdefault
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 100.64.254.0/24
