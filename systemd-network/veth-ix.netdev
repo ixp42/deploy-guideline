@@ -1,0 +1,6 @@
+[NetDev]
+Name=veth-ix
+Kind=veth
+
+[Peer]
+Name=veth-ix-docker
