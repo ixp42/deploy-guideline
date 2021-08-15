@@ -16,6 +16,6 @@ ZeroTier, by default, assigns a pretty 'random' interface name for each network 
 
 ``` bash
 ip link add vx-ix type vxlan id 100 dev [INET_IF] dstport 4789
-ip link set vx-lan up
-brctl addbr br-ix vx-lan
+ip link set vx-ix up
+brctl addif br-ix vx-ix
 ```
